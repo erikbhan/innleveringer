@@ -15,7 +15,7 @@ public class FractionsClient {
             int denominator = scanner.nextInt();
             final Fraction firstFraction = new Fraction(numerator, denominator);
 
-            System.out.println("");
+            System.out.println();
 
             System.out.print("Second fraction numerator: ");
             numerator = scanner.nextInt();
@@ -26,7 +26,7 @@ public class FractionsClient {
             System.out.println("Enter action you want to perform\n 1: Add\n 2: Subtract\n 3: Multiply\n 4: Divide");
             final int action = scanner.nextInt();
 
-            switch (Integer.valueOf(action)) {
+            switch (action) {
                 case 1:
                     System.out.println("\nAdding:");
                     System.out.print(firstFraction + " + " + secondFraction + " = ");
