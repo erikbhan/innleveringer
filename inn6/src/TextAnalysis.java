@@ -1,7 +1,7 @@
 public class TextAnalysis {
 
-    private int[] differentCharacters;
-    private String textToAnalyze;
+    private final int[] differentCharacters;
+    private final String textToAnalyze;
 
     public TextAnalysis(String textToAnalyze) {
         this.textToAnalyze = textToAnalyze;
@@ -49,6 +49,65 @@ public class TextAnalysis {
     }
 
     public int amountOfDifferentCharacters() {
-        return -1;
+        int amount = 0;
+        for (int occurrences : this.differentCharacters) {
+            if (occurrences != 0) {
+                amount++;
+            }
+        }
+        if (this.differentCharacters[29] != 0) {
+            amount--;
+        }
+        return amount;
+    }
+
+    public int totalAmountOfCharacters() {
+        int amount = 0;
+        for (int occurrences : this.differentCharacters) {
+            amount += occurrences;
+        }
+        amount -= this.differentCharacters[29];
+        return amount;
+    }
+
+    public int percentageOfNonLetters() {
+        int letters = totalAmountOfCharacters();
+        int nonLetters = this.differentCharacters[29];
+        return (int) Math.round(nonLetters * 100.0 / letters);
+    }
+
+    public int occurrencesOfLetter(char letter) {
+        int amount = 0;
+        for (int i = 0; i < this.textToAnalyze.length(); i++) {
+            if (this.textToAnalyze.charAt(i) == letter) {
+                amount++;
+            }
+        }
+        return amount;
+    }
+
+    public char mostOccurring() {
+        int[] ctr = new int[256];
+        for (int i = 0; i < this.textToAnalyze.length(); i++)
+            ctr[this.textToAnalyze.charAt(i)]++;
+        int max = -1;
+        char result = ' ';
+
+        for (int i = 0; i < this.textToAnalyze.length(); i++) {
+            if (max < ctr[this.textToAnalyze.charAt(i)]) {
+                max = ctr[this.textToAnalyze.charAt(i)];
+                result = this.textToAnalyze.charAt(i);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Antall forskjellige bokstaver i teksten: " + this.amountOfDifferentCharacters() +
+                "\nTotalt antall bokstaver i teksten: " + this.totalAmountOfCharacters() +
+                "\nProsentandel som ikke er bokstaver: " + this.percentageOfNonLetters() + "%" +
+                "\nBokstaver som forekommer mest: " + this.mostOccurring();
     }
 }
