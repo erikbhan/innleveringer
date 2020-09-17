@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class CurrencyConvertClient {
     public static void main(String[] args) {
-        // Exchange rate aqquired: 2020-09-07 15:43
+        // Exchange rate acquired: 2020-09-07 15:43
         Currency usd = new Currency(8.93, "United States Dollar");
         Currency gbp = new Currency(11.75, "Pound Sterling");
         Currency sek = new Currency(1.02, "Swedish Krona");
