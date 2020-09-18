@@ -1,7 +1,7 @@
 public class TextAnalysis {
 
-    private final int[] differentCharacters;
-    private final String textToAnalyze;
+    private int[] differentCharacters;
+    private String textToAnalyze;
 
     public TextAnalysis(String textToAnalyze) {
         this.textToAnalyze = textToAnalyze;
@@ -14,6 +14,7 @@ public class TextAnalysis {
         for (int i = 0; i < this.textToAnalyze.length(); i++) {
             char charToAnalyze = Character.toLowerCase(this.textToAnalyze.charAt(i));
             switch (charToAnalyze) {
+                //TODO: bedre måte å gjøre dette på?
                 case 'a' -> differentCharacters[0]++;
                 case 'b' -> differentCharacters[1]++;
                 case 'c' -> differentCharacters[2]++;
@@ -86,28 +87,32 @@ public class TextAnalysis {
         return amount;
     }
 
-    public char mostOccurring() {
-        int[] ctr = new int[256];
-        for (int i = 0; i < this.textToAnalyze.length(); i++)
-            ctr[this.textToAnalyze.charAt(i)]++;
-        int max = -1;
+    //TODO: hashmap for flere bokstaver?
+    public char mostOccurringCharacters() {
         char result = ' ';
+        int[] counter = new int[256];
+
+
+        for (int i = 0; i < this.textToAnalyze.length(); i++)
+            counter[this.textToAnalyze.charAt(i)]++;
+
+        //-1 for å unngå å legge til første character i første loop
+        int max = -1;
 
         for (int i = 0; i < this.textToAnalyze.length(); i++) {
-            if (max < ctr[this.textToAnalyze.charAt(i)]) {
-                max = ctr[this.textToAnalyze.charAt(i)];
+            if (max < counter[this.textToAnalyze.charAt(i)]) {
+                max = counter[this.textToAnalyze.charAt(i)];
                 result = this.textToAnalyze.charAt(i);
             }
         }
-
         return result;
     }
 
     @Override
     public String toString() {
-        return "Antall forskjellige bokstaver i teksten: " + this.amountOfDifferentCharacters() +
+        return    "Antall forskjellige bokstaver i teksten: " + this.amountOfDifferentCharacters() +
                 "\nTotalt antall bokstaver i teksten: " + this.totalAmountOfCharacters() +
                 "\nProsentandel som ikke er bokstaver: " + this.percentageOfNonLetters() + "%" +
-                "\nBokstaver som forekommer mest: " + this.mostOccurring();
+                "\nBokstav som forekommer mest: " + this.mostOccurringCharacters();
     }
 }
