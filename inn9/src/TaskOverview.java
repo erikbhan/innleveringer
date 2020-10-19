@@ -24,6 +24,9 @@ public class TaskOverview {
         Student[] temp = new Student[this.students.length];
 
         for (int i = 0; i < this.students.length; i++) {
+            if (this.students[i].equals(studentToAdd)) {
+                return;
+            }
             temp[i] = this.students[i];
         }
 
@@ -32,6 +35,7 @@ public class TaskOverview {
         for (int i = 0; i < temp.length; i++) {
             this.students[i] = temp[i];
         }
+
         this.students[this.students.length - 1] = studentToAdd;
         this.studentCount++;
     }
@@ -48,7 +52,7 @@ public class TaskOverview {
     public String toString() {
         String out = "";
         for (Student student: this.students) {
-            out += student.getName() + ", tasks completed: " + student.getTaskCount() + "\n";
+            out += student.toString() ;
         }
         return out;
     }

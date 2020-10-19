@@ -1,5 +1,5 @@
 public class Student {
-    private String name;
+    private final String name;
     private int taskCount;
 
     public Student(String name, int taskCount) {
