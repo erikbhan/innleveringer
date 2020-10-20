@@ -50,6 +50,6 @@ public class Event implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return (int) (this.eventDateAndTime - ((Event)o).getEventDateAndTime());
+        return (int) (this.eventDateAndTime - ((Event) o).getEventDateAndTime());
     }
 }
