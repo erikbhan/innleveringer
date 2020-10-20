@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EventRegisterTest {
@@ -5,17 +6,19 @@ public class EventRegisterTest {
         Scanner scanner = new Scanner(System.in);
         EventRegister er = new EventRegister(scanner);
 
-        er.addNewEvent("Hello", "World", "Me", "Coding", 20201231, 2030);
-        er.addNewEvent("Hello", "World", "Me", "Coding", 20201230, 2030);
-        er.addNewEvent("Hello", "World", "Me", "Coding", 20201229, 2030);
-        er.addNewEvent("Hello", "World", "Me", "Coding", 20201228, 2030);
-        er.addNewEvent("Hello", "World", "Me", "Coding", 20201231, 2030);
-        er.addNewEvent("Hello", "World", "Me", "Coding", 20201231, 2030);
+        er.addNewEvent("Hello", "World", "Me", "Coding", 202012312030L);
+        er.addNewEvent("Hello", "World", "Me", "Coding", 202012302030L);
+        er.addNewEvent("Hello", "World", "Me", "Coding", 202012292030L);
+        er.addNewEvent("Hello", "World", "Me", "Coding", 202012282030L);
+        er.addNewEvent("Hello", "World", "Me", "Coding", 202012312030L);
+        er.addNewEvent("Hello", "World", "Me", "Coding", 202012312030L);
 
         System.out.println(er.getEvents().size());
         //System.out.println(er);
-        for (Event event: er.findEventsGivenDate(20201231)) {
+        for (Event event: er.findEventsGivenDate(202012312030L)) {
             System.out.println(event);
         }
+
+        //System.out.println(er);
     }
 }

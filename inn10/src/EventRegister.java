@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class EventRegister {
@@ -24,12 +24,12 @@ public class EventRegister {
         return false;
     }
 
-    public void addNewEvent(String eventName, String eventLocation, String eventOrganizer, String eventType, int eventDate, int eventTime) {
+    public void addNewEvent(String eventName, String eventLocation, String eventOrganizer, String eventType, long eventDateAndTime) {
         int eventNr = 1;
         while (checkIfEventNrExists(eventNr)) { //Forsikre at eventNr er entydig
             eventNr++;
         }
-        this.events.add(new Event(eventNr, eventName, eventLocation, eventOrganizer, eventType, eventDate, eventTime));
+        this.events.add(new Event(eventNr, eventName, eventLocation, eventOrganizer, eventType, eventDateAndTime));
     }
 
     public ArrayList<Event> findEventsGivenLocation(String location) {
@@ -42,27 +42,25 @@ public class EventRegister {
         return eventsGivenLocation;
     }
 
-    public ArrayList<Event> findEventsGivenDate(int date) {
+    public ArrayList<Event> findEventsGivenDate(long date) {
         ArrayList<Event> eventsGivenDate = new ArrayList<>();
         for (Event event: this.events) {
-            if (event.getEventDateAndTime().getDate() == date) {
+            if (event.getEventDateAndTime() == date) {
                 eventsGivenDate.add(event);
             }
         }
         return eventsGivenDate;
     }
 
-    public void findEventsGivenTimeInterval(int dateTo, int dateFrom) { //Sorted by time
+    public void findEventsGivenTimeInterval(long dateFrom, long dateTo) { //Sorted by time
         ArrayList<Event> eventsGivenInterval = new ArrayList<>();
         for (Event event: this.events) {
-            if (event.getEventDateAndTime().getDate() >= dateFrom && event.getEventDateAndTime().getDate() <= dateTo) {
+            if (event.getEventDateAndTime() >= dateFrom && event.getEventDateAndTime() <= dateTo) {
                 eventsGivenInterval.add(event);
             }
         }
-        Comparator<Event> eventComparator = Comparator.comparing(Event::getEventDateAndTime, (s1, s2) -> {
-                    return s2.compareTo(s1);
-                });
-        eventsGivenInterval.sort(eventComparator);
+
+        Collections.sort(eventsGivenInterval);
     }
 
     public void listAllEventsSortedByLocation() {

@@ -1,18 +1,18 @@
-public class Event {
+public class Event implements Comparable {
     private final int eventNr; //Entydig
     private final String eventName;
     private final String eventLocation;
     private final String eventOrganizer;
     private final String eventType;
-    private final EventDateTime eventDateAndTime; //YYYYMMDDHHMM
+    private final long eventDateAndTime; //YYYYMMDDHHMM
 
-    public Event(int eventNr, String eventName, String eventLocation, String eventOrganizer, String eventType, int eventDate, int eventTime) {
+    public Event(int eventNr, String eventName, String eventLocation, String eventOrganizer, String eventType, long eventDateAndTime) {
         this.eventNr = eventNr;
         this.eventName = eventName;
         this.eventLocation = eventLocation;
         this.eventOrganizer = eventOrganizer;
         this.eventType = eventType;
-        this.eventDateAndTime = new EventDateTime(eventDate, eventTime);
+        this.eventDateAndTime = eventDateAndTime;
     }
 
     public int getEventNr() {
@@ -35,7 +35,7 @@ public class Event {
         return eventType;
     }
 
-    public EventDateTime getEventDateAndTime() {
+    public long getEventDateAndTime() {
         return eventDateAndTime;
     }
 
@@ -46,5 +46,10 @@ public class Event {
                 "Organizer:\t" + eventOrganizer + "\n " +
                 "Type.....:\t" + eventType + "\n " +
                 "Date/time:\t" + eventDateAndTime;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return (int) (this.eventDateAndTime - ((Event)o).getEventDateAndTime());
     }
 }
