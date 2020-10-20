@@ -1,48 +1,88 @@
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 
 public class EventRegister {
-    private final ArrayList<Event> events;
+    private ArrayList<Event> events;
+    private final Scanner scanner;
 
-    public EventRegister() {
+    public EventRegister(Scanner scanner) {
         this.events = new ArrayList<>();
+        this.scanner = scanner;
     }
 
-    public void addNewEvent(String name, String location, String organizer, String type, int timeAndDate) {
-        int nr = this.events.get(this.events.size()).getNr() + 1;
-        Event event = new Event(nr, name, location, organizer, type, timeAndDate);
-        this.events.add(event);
-        System.out.println("Added new event successfully.");
+    public ArrayList<Event> getEvents() {
+        return events;
     }
 
-    public ArrayList<Event> findEventsAtLocation(String location) {
-        ArrayList<Event> eventsAtLocation = new ArrayList<>();
+    private boolean checkIfEventNrExists(int eventNr) { //returns true if eventNr exists already
         for (Event event: this.events) {
-            if (event.getLocation().equals(location)) {
-                eventsAtLocation.add(event);
+            if (event.getEventNr() == eventNr) {
+                return true;
             }
         }
-        return eventsAtLocation;
+        return false;
     }
 
-    public ArrayList<Event> findEventsOnDate(int date) {
-        date *= 10000; //Ex.: Sets "20021017" to "200210170000"
-        ArrayList<Event> eventsOnDate = new ArrayList<>();
-        for (Event event: this.events) {
-            if (event.getTimeAndDate() >= date && event.getTimeAndDate() <= date + 2359) {
-                eventsOnDate.add(event);
-            }
+    public void addNewEvent(String eventName, String eventLocation, String eventOrganizer, String eventType, int eventDate, int eventTime) {
+        int eventNr = 1;
+        while (checkIfEventNrExists(eventNr)) { //Forsikre at eventNr er entydig
+            eventNr++;
         }
-        eventsOnDate.sort();
-        return eventsOnDate;
+        this.events.add(new Event(eventNr, eventName, eventLocation, eventOrganizer, eventType, eventDate, eventTime));
     }
 
-    public ArrayList<Event> findEventsWithingTimeInterval(int dateAndTimeFrom, int dateAndTimeTo) {
-        ArrayList<Event> eventsInInterval = new ArrayList<>();
+    public ArrayList<Event> findEventsGivenLocation(String location) {
+        ArrayList<Event> eventsGivenLocation = new ArrayList<>();
         for (Event event: this.events) {
-            if (dateAndTimeFrom <= event.getTimeAndDate() && event.getTimeAndDate() <= dateAndTimeTo) {
-                eventsInInterval.add(event);
+            if (event.getEventLocation().equals(location)) {
+                eventsGivenLocation.add(event);
             }
         }
-        return eventsInInterval;
+        return eventsGivenLocation;
+    }
+
+    public ArrayList<Event> findEventsGivenDate(int date) {
+        ArrayList<Event> eventsGivenDate = new ArrayList<>();
+        for (Event event: this.events) {
+            if (event.getEventDateAndTime().getDate() == date) {
+                eventsGivenDate.add(event);
+            }
+        }
+        return eventsGivenDate;
+    }
+
+    public void findEventsGivenTimeInterval(int dateTo, int dateFrom) { //Sorted by time
+        ArrayList<Event> eventsGivenInterval = new ArrayList<>();
+        for (Event event: this.events) {
+            if (event.getEventDateAndTime().getDate() >= dateFrom && event.getEventDateAndTime().getDate() <= dateTo) {
+                eventsGivenInterval.add(event);
+            }
+        }
+        Comparator<Event> eventComparator = Comparator.comparing(Event::getEventDateAndTime, (s1, s2) -> {
+                    return s2.compareTo(s1);
+                });
+        eventsGivenInterval.sort(eventComparator);
+    }
+
+    public void listAllEventsSortedByLocation() {
+
+    }
+
+    public void listAllEventsSortedByType() {
+
+    }
+
+    public void listAllEventsSortedByDateAndTime() {
+
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (Event event: events) {
+            s += event + "\n";
+        }
+        return s;
     }
 }

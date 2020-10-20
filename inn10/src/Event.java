@@ -1,53 +1,50 @@
 public class Event {
-    private final int nr;
-    private final String name;
-    private final String location;
-    private final String organizer;
-    private final String type;
-    private final int timeAndDate;
+    private final int eventNr; //Entydig
+    private final String eventName;
+    private final String eventLocation;
+    private final String eventOrganizer;
+    private final String eventType;
+    private final EventDateTime eventDateAndTime; //YYYYMMDDHHMM
 
-    public Event(int nr, String name, String location, String organizer, String type, int timeAndDate) {
-        this.name = name;
-        this.nr = nr;
-        this.location = location;
-        this.organizer = organizer;
-        this.type = type;
-        this.timeAndDate = timeAndDate;
+    public Event(int eventNr, String eventName, String eventLocation, String eventOrganizer, String eventType, int eventDate, int eventTime) {
+        this.eventNr = eventNr;
+        this.eventName = eventName;
+        this.eventLocation = eventLocation;
+        this.eventOrganizer = eventOrganizer;
+        this.eventType = eventType;
+        this.eventDateAndTime = new EventDateTime(eventDate, eventTime);
     }
 
-    public int getNr() {
-        return nr;
+    public int getEventNr() {
+        return eventNr;
     }
 
-    public String getName() {
-        return name;
+    public String getEventName() {
+        return eventName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getEventLocation() {
+        return eventLocation;
     }
 
-    public String getOrganizer() {
-        return organizer;
+    public String getEventOrganizer() {
+        return eventOrganizer;
     }
 
-    public String getType() {
-        return type;
+    public String getEventType() {
+        return eventType;
     }
 
-    public int getTimeAndDate() {
-        return timeAndDate;
+    public EventDateTime getEventDateAndTime() {
+        return eventDateAndTime;
     }
 
     @Override
     public String toString() {
-        return "Event{" +
-                "nr=" + nr +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", organizer='" + organizer + '\'' +
-                ", type='" + type + '\'' +
-                ", timeAndDate=" + timeAndDate +
-                '}';
+        return "Event #" + eventNr + ":\t'" + eventName + "'\n " +
+                "Location.:\t" + eventLocation + "\n " +
+                "Organizer:\t" + eventOrganizer + "\n " +
+                "Type.....:\t" + eventType + "\n " +
+                "Date/time:\t" + eventDateAndTime;
     }
 }
