@@ -1,7 +1,7 @@
 public class Recipe {
-    private String name;
-    private String type;
-    private double price;
+    private final String name;
+    private final String type;
+    private final double price;
 
     public Recipe(String name, String type, double price) {
         this.name = name;
