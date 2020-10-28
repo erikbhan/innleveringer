@@ -5,5 +5,5 @@ public class ArbTaker {
     double månedslønn;
     double skatteprosent;
 
-    public ArbTaker(Person personalia,)
+    //public ArbTaker(Person personalia,)
 }
